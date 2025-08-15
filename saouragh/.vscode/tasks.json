@@ -20,6 +20,21 @@
             ]
         },
         {
+            "label": "build",
+            "type": "shell",
+            "command": "make",
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "label": "clean",
             "type": "shell",
             "command": "make",

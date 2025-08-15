@@ -6,5 +6,10 @@
     "files.associations": {
         "*.h": "c",
         "*.c": "c"
-    }
+    },
+    "debug.console.acceptSuggestionOnEnter": "on",
+    "debug.console.fontSize": 14,
+    "debug.inlineValues": "on",
+    "debug.showBreakpointsInOverviewRuler": true,
+    "debug.toolBarLocation": "floating"
 }

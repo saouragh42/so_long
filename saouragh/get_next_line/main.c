@@ -5,19 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/30 19:49:54 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/15 22:45:14 by saouragh         ###   ########.fr       */
+/*   Created: 2025/01/18 19:54:24 by saouragh          #+#    #+#             */
+/*   Updated: 2025/08/15 20:35:26 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "get_next_line.h"
+#include <stdio.h>
+#include <fcntl.h>
 
-int	main(int argc, char **argv)
+int	main(void)
 {
-	if (argc == 1)
-		map_error("Please provide a map\n./so_long <your map>.ber");
-	else if (argc > 2)
-		map_error("Too many arguments.");
-	is_valid_map_parsing(argv[1]);
+	int		fd;
+	char	*next_line;
+	int		count;
+
+	count = 0;
+	fd = open("example.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error opening file");
+		return (1);
+	}
+	while (1)
+	{
+		next_line = get_next_line(fd);
+		if (next_line == NULL)
+			break ;
+		count++;
+		printf("[%d]:%s\n", count, next_line);
+		free(next_line);
+		next_line = NULL;
+	}
+	close(fd);
 	return (0);
 }
