@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:47:37 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/15 22:44:24 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/16 17:36:24 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,21 @@ int	is_file_exists(char *map_path)
 	return (1);
 }
 
+int	check_line_length(char *line, int expected_len)
+{
+	int	len;
+
+	len = ft_strlen(line);
+	if (len > 0 && line[len - 1] == '\n')
+		len--;
+	return (len == expected_len);
+}
+
 int	is_map_rectangular(char *map_path)
 {
 	int		fd;
 	char	*line;
 	int		first_len;
-	int		len;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
@@ -44,23 +53,18 @@ int	is_map_rectangular(char *map_path)
 	if (!line)
 		return (close(fd), 0);
 	first_len = ft_strlen(line);
-	if (line[first_len - 1] == '\n')
+	if (first_len > 0 && line[first_len - 1] == '\n')
 		first_len--;
 	free(line);
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		len = ft_strlen(line);
-		if (line[len - 1] == '\n')
-			len--;
-		if (len != first_len)
-		{
-			free(line);
-			return (close(fd), 0);
-		}
+		if (!check_line_length(line, first_len))
+			return (free(line), close(fd), 0);
 		free(line);
+		line = get_next_line(fd);
 	}
-	close(fd);
-	return (1);
+	return (close(fd), 1);
 }
 
 int	is_map_empty(char *map_path)
@@ -81,13 +85,17 @@ int	is_map_empty(char *map_path)
 		free(line);
 		if (!is_empty)
 		{
-			while ((line = get_next_line(fd)) != NULL)
+			line = get_next_line(fd);
+			while (line != NULL)
+			{
 				free(line);
+				line = get_next_line(fd);
+			}
 		}
 	}
-	close(fd);
-	return (is_empty);
+	return (close(fd), is_empty);
 }
+
 /**
  * Checks if the map name is valid.
  * A valid map name must:
@@ -119,7 +127,7 @@ int	is_valid_map_name(char *map_name)
 	return (1);
 }
 
-void	is_valid_map_parsing(char *map_path)
+void	check_map_parsing(char *map_path)
 {
 	if (!is_valid_map_name(map_path))
 		map_error("Invalid map name");

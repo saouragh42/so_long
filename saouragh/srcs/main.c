@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 19:49:54 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/15 22:45:14 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/16 17:36:21 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	main(int argc, char **argv)
 		map_error("Please provide a map\n./so_long <your map>.ber");
 	else if (argc > 2)
 		map_error("Too many arguments.");
-	is_valid_map_parsing(argv[1]);
+	check_map_parsing(argv[1]);
 	return (0);
 }
