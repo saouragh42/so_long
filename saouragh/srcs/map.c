@@ -6,11 +6,15 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:47:37 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/16 17:36:24 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/20 20:12:35 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../include/so_long.h"
+
+void	check_map_parsing(t_map *map);
+bool	is_map_rectangular(t_map *map);
+bool	is_map_enclosed_by_walls(t_map *map);
 
 void	map_error(char *error_msg)
 {
@@ -40,61 +44,54 @@ int	check_line_length(char *line, int expected_len)
 	return (len == expected_len);
 }
 
-int	is_map_rectangular(char *map_path)
+bool is_map_rectangular(t_map *map)
 {
-	int		fd;
-	char	*line;
-	int		first_len;
+	int i;
+	int len;
 
-	fd = open(map_path, O_RDONLY);
-	if (fd < 0)
-		return (0);
-	line = get_next_line(fd);
-	if (!line)
-		return (close(fd), 0);
-	first_len = ft_strlen(line);
-	if (first_len > 0 && line[first_len - 1] == '\n')
-		first_len--;
-	free(line);
-	line = get_next_line(fd);
-	while (line != NULL)
+	if (!map || map->rows <= 0 || map->cols <= 0)
+		map_error("Invalid map structure");
+	i = 0;
+	while (i < map->rows)
 	{
-		if (!check_line_length(line, first_len))
-			return (free(line), close(fd), 0);
-		free(line);
-		line = get_next_line(fd);
+		len = ft_strlen(map->map[i]);
+		if (len > 0 && map->map[i][len - 1] == '\n')
+			len--;
+		if (len != map->cols)
+			return (false);
+		i++;
 	}
-	return (close(fd), 1);
+	return (true);
 }
 
-int	is_map_empty(char *map_path)
-{
-	int		fd;
-	char	*line;
-	int		is_empty;
+// bool	is_map_empty(char *map_path)
+// {
+// 	int		fd;
+// 	char	*line;
+// 	bool	is_empty;
 
-	fd = open(map_path, O_RDONLY);
-	if (fd < 0)
-		return (1);
-	line = get_next_line(fd);
-	is_empty = 1;
-	if (line)
-	{
-		if (ft_strlen(line) > 1 || (ft_strlen(line) == 1 && line[0] != '\n'))
-			is_empty = 0;
-		free(line);
-		if (!is_empty)
-		{
-			line = get_next_line(fd);
-			while (line != NULL)
-			{
-				free(line);
-				line = get_next_line(fd);
-			}
-		}
-	}
-	return (close(fd), is_empty);
-}
+// 	fd = open(map_path, O_RDONLY);
+// 	if (fd < 0)
+// 		return (true);
+// 	line = get_next_line(fd);
+// 	is_empty = true;
+// 	if (line)
+// 	{
+// 		if (ft_strlen(line) > 1 || (ft_strlen(line) == 1 && line[0] != '\n'))
+// 			is_empty = false;
+// 		free(line);
+// 		if (!is_empty)
+// 		{
+// 			line = get_next_line(fd);
+// 			while (line != NULL)
+// 			{
+// 				free(line);
+// 				line = get_next_line(fd);
+// 			}
+// 		}
+// 	}
+// 	return (close(fd), is_empty);
+// }
 
 /**
  * Checks if the map name is valid.
@@ -127,14 +124,34 @@ int	is_valid_map_name(char *map_name)
 	return (1);
 }
 
-void	check_map_parsing(char *map_path)
+bool is_map_enclosed_by_walls(t_map *map)
 {
-	if (!is_valid_map_name(map_path))
-		map_error("Invalid map name");
-	if (!is_file_exists(map_path))
-		map_error("Map file does not exist");
-	if (is_map_empty(map_path))
-		map_error("Map is empty");
-	if (!is_map_rectangular(map_path))
+	int	r;
+	int	c;
+
+	if (!map || map->rows <= 0 || map->cols <= 0)
+		return (false);
+	r = 0;
+	c = 0;
+	while (c < map->cols)
+	{
+		if (map->map[0][c] != WALL || map->map[map->rows - 1][c] != WALL)
+			return (false);
+		c++;
+	}
+	while (r < map->rows)
+	{
+		if (map->map[r][0] != WALL || map->map[r][map->cols - 1] != WALL)
+			return (false);
+		r++;
+	}
+	return (true);
+}
+
+void	check_map_parsing(t_map *map)
+{
+	if (!is_map_rectangular(map))
 		map_error("Map is not rectangular");
+	if (!is_map_enclosed_by_walls(map))
+		map_error("Map is not enclosed by walls");
 }

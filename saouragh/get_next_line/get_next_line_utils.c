@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saouragh <saouragh@student.s19.be>         +#+  +:+       +#+        */
+/*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:16 by saouragh          #+#    #+#             */
-/*   Updated: 2025/01/28 19:17:33 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:18:31 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_strdup(const char *s1)
 	size_t	len;
 
 	len = ft_strlen_until(s1, '\0');
-	dup = ft_calloc(len + 1, sizeof(char));
+	dup = ft_calloc_gnl(len + 1, sizeof(char));
 	if (!dup)
 		return (NULL);
 	i = 0;
@@ -67,7 +67,7 @@ char	*ft_strjoin_free(char *s1, char *s2, int bytes_read)
 	if (!s1 || !s2)
 		return (NULL);
 	i = ft_strlen_until(s1, '\0');
-	joined = ft_calloc(i + bytes_read + 1, sizeof(char));
+	joined = ft_calloc_gnl(i + bytes_read + 1, sizeof(char));
 	if (!joined)
 		return (NULL);
 	i = 0;
@@ -83,7 +83,7 @@ char	*ft_strjoin_free(char *s1, char *s2, int bytes_read)
 	return (joined);
 }
 
-void	*ft_calloc(size_t count, size_t size)
+void	*ft_calloc_gnl(size_t count, size_t size)
 {
 	void	*ptr;
 
@@ -92,6 +92,6 @@ void	*ft_calloc(size_t count, size_t size)
 	ptr = malloc(count * size);
 	if (!ptr)
 		return (NULL);
-	ft_bzero(ptr, count * size);
+	ft_bzero_gnl(ptr, count * size);
 	return (ptr);
 }

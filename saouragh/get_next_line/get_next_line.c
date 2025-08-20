@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saouragh <saouragh@student.s19.be>         +#+  +:+       +#+        */
+/*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:53 by saouragh          #+#    #+#             */
-/*   Updated: 2025/01/28 19:18:33 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:18:29 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero_gnl(void *s, size_t n)
 {
 	unsigned char	*p;
 
@@ -48,7 +48,7 @@ char	*extract_line(char	*static_buffer)
 	size = ft_strlen_until(static_buffer, '\n');
 	if (static_buffer[0] != '\n' && size == 0)
 		return (NULL);
-	line = ft_calloc(size + 2, sizeof(char));
+	line = ft_calloc_gnl(size + 2, sizeof(char));
 	if (!line)
 		return (NULL);
 	i = 0;
@@ -67,7 +67,7 @@ char	*read_from_file(int fd, char *static_buffer)
 	char	*read_buffer;
 	int		bytes_read;
 
-	read_buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	read_buffer = ft_calloc_gnl((BUFFER_SIZE + 1), sizeof(char));
 	if (!read_buffer)
 		return (NULL);
 	bytes_read = 1;
@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!static_buffer)
-		static_buffer = ft_calloc(1, sizeof(char));
+		static_buffer = ft_calloc_gnl(1, sizeof(char));
 	if (!static_buffer)
 		return (NULL);
 	if (!ft_strchr(static_buffer, '\n'))

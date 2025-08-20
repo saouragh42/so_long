@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saouragh <saouragh@student.s19.be>         +#+  +:+       +#+        */
+/*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:57 by saouragh          #+#    #+#             */
-/*   Updated: 2025/01/28 19:16:47 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/20 22:19:58 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char	*get_next_line(int fd);
 
 char	*ft_strchr(const char *s, int c);
 
-void	*ft_calloc(size_t count, size_t size);
+void	*ft_calloc_gnl(size_t count, size_t size);
 
-void	ft_bzero(void *s, size_t n);
+void	ft_bzero_gnl(void *s, size_t n);
 
 char	*ft_strdup(const char *s1);
 
