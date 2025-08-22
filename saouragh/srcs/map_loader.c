@@ -6,27 +6,27 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/20 19:35:04 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/20 22:55:19 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:09:03 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void		fill_map_from_file(t_map **map, const char *map_path);
+void		fill_map_from_file(t_game *game, const char *map_path);
 static int	count_map_rows(const char *map_path);
-static void	load_map(t_map **map, const char *map_path);
-static void	set_map_rows_and_cols(t_map **map);
+static void	load_map(t_game *game, const char *map_path);
+static void	copy_map(t_game *game);
 
-void	fill_map_from_file(t_map **map, const char *map_path)
+void	fill_map_from_file(t_game *game, const char *map_path)
 {
-	(*map)->rows = count_map_rows(map_path);
-	if ((*map)->rows <= 0)
-		map_error("Map is empty");
-	(*map)->map = ft_calloc((*map)->rows + 1, sizeof(char *));
-	if (!(*map)->map)
-		map_error("Failed to allocate memory for map");
-	load_map(map, map_path);
-	set_map_rows_and_cols(map);
+	game->map.rows = count_map_rows(map_path);
+	if (game->map.rows <= 0)
+		map_error(game, "Map is empty");
+	game->map.map_grid = ft_calloc(game->map.rows + 1, sizeof(char *));
+	if (!game->map.map_grid)
+		map_error(game, "Failed to allocate memory for map");
+	load_map(game, map_path);
+	copy_map(game);
 }
 
 /**
@@ -40,7 +40,7 @@ static int	count_map_rows(const char *map_path)
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-		map_error("Failed to open map file");
+		map_error(NULL, "Failed to open map file");
 	rows = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
@@ -53,35 +53,53 @@ static int	count_map_rows(const char *map_path)
 	return (rows);
 }
 
-static void	load_map(t_map **map, const char *map_path)
+static void	load_map(t_game *game, const char *map_path)
 {
 	int		fd;
 	int		i;
 	char	*line;
+	int		len;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-		map_error("Failed to open map file");
+		map_error(game, "Failed to open map file");
 	i = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		(*map)->map[i++] = line;
+		len = ft_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			line[len - 1] = '\0';
+		game->map.map_grid[i++] = line;
 		line = get_next_line(fd);
 	}
-	(*map)->map[i] = NULL;
+	game->map.map_grid[i] = NULL;
+	if (game->map.rows > 0 && game->map.map_grid[0])
+		game->map.columns = ft_strlen(game->map.map_grid[0]);
 	close(fd);
 }
 
-static void	set_map_rows_and_cols(t_map **map)
+static void	copy_map(t_game *game)
 {
-	int	len;
+	int	i;
 
-	if ((*map)->rows > 0 && (*map)->map[0])
+	game->map_copy.rows = game->map.rows;
+	game->map_copy.columns = game->map.columns;
+	game->map_copy.map_grid = ft_calloc(
+			game->map_copy.rows + 1,
+			sizeof(char *));
+	if (!game->map_copy.map_grid)
+		map_error(game, "Failed to allocate memory for map copy");
+	i = 0;
+	while (i < game->map_copy.rows)
 	{
-		len = ft_strlen((*map)->map[0]);
-		if (len > 0 && (*map)->map[0][len - 1] == '\n')
-			len--;
-		(*map)->cols = len;
+		game->map_copy.map_grid[i] = ft_strdup(game->map.map_grid[i]);
+		if (!game->map_copy.map_grid[i])
+		{
+			free_map(&game->map_copy);
+			map_error(game, "Failed to copy map grid");
+		}
+		i++;
 	}
+	game->map_copy.map_grid[i] = NULL;
 }

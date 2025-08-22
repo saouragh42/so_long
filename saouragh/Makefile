@@ -16,7 +16,9 @@ CFLAGS			=	-Wall -Werror -Wextra -g
 SO_LONG_FILES	=	main.c \
 					map.c \
 					init.c \
-					map_loader.c
+					init_structures.c \
+					map_loader.c \
+					error.c
 
 SRCS			= $(addprefix $(SRC_DIR), $(SO_LONG_FILES))
 OBJ				= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

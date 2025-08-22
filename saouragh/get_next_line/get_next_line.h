@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:57 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/20 22:19:58 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:49:04 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_calloc_gnl(size_t count, size_t size);
 
 void	ft_bzero_gnl(void *s, size_t n);
 
-char	*ft_strdup(const char *s1);
+char	*ft_strdup_gnl(const char *s1);
 
 size_t	ft_strlen_until(const char *str, char c);
 

@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:16 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/20 22:18:31 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:51:13 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup_gnl(const char *s1)
 {
 	char	*dup;
 	size_t	i;

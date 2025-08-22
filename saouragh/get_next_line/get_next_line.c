@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/13 15:48:53 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/20 22:18:29 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 02:49:03 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*obtain_remaining(char *static_buffer)
 		free(static_buffer);
 		return (NULL);
 	}
-	remaining = ft_strdup(newline + 1);
+	remaining = ft_strdup_gnl(newline + 1);
 	free(static_buffer);
 	return (remaining);
 }
