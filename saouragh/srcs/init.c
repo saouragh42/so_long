@@ -6,15 +6,15 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 02:18:20 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 15:45:04 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 21:48:51 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
 void	check_args(int argc, char **argv);
-int		is_file_exists(char *map_path);
-int		is_valid_map_name(char *map_name);
+static int		is_file_exists(char *map_path);
+static int		is_valid_map_name(char *map_name);
 
 void	check_args(int argc, char **argv)
 {
@@ -35,7 +35,7 @@ void	check_args(int argc, char **argv)
  * * - Contain only printable characters
  * "..ber" is not valid
  */
-int	is_valid_map_name(char *map_name)
+static int	is_valid_map_name(char *map_name)
 {
 	int	len;
 	int	i;
@@ -59,7 +59,7 @@ int	is_valid_map_name(char *map_name)
 	return (1);
 }
 
-int	is_file_exists(char *map_path)
+static int	is_file_exists(char *map_path)
 {
 	int	fd;
 

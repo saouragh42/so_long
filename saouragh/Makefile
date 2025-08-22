@@ -18,7 +18,9 @@ SO_LONG_FILES	=	main.c \
 					init.c \
 					init_structures.c \
 					map_loader.c \
-					error.c
+					error.c \
+					path_validity.c \
+					parsing.c
 
 SRCS			= $(addprefix $(SRC_DIR), $(SO_LONG_FILES))
 OBJ				= $(SRCS:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

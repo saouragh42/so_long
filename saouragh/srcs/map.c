@@ -6,17 +6,22 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:47:37 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 15:42:35 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/22 21:47:22 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	validate_map(t_game *game);
-bool	is_map_rectangular(t_game *game);
-bool	is_map_enclosed_by_walls(t_map *map);
-void	validate_and_count_map_elements(t_game *game);
+// Map validation and content checking
+void		validate_map(t_game *game);
+static bool	is_map_rectangular(t_game *game);
+static bool	is_map_enclosed_by_walls(t_map *map);
+static void	check_map_element(t_game *game, int row, int col);
+static void	validate_and_count_map_elements(t_game *game);
 
+/**
+ * Validates the map structure, content, and path validity
+ */
 void	validate_map(t_game *game)
 {
 	if (!is_map_rectangular(game))
@@ -24,19 +29,12 @@ void	validate_map(t_game *game)
 	if (!is_map_enclosed_by_walls(&game->map))
 		map_error(game, "Map is not enclosed by walls");
 	validate_and_count_map_elements(game);
+	check_path_validity(game);
 }
 
-// int	check_line_length(char *line, int expected_len)
-// {
-// 	int	len;
 
-// 	len = ft_strlen(line);
-// 	if (len > 0 && line[len - 1] == '\n')
-// 		len--;
-// 	return (len == expected_len);
-// }
-
-bool	is_map_rectangular(t_game *game)
+// Checks if the map is rectangular (all rows have the same length)
+static bool	is_map_rectangular(t_game *game)
 {
 	t_map	*map;
 	int		i;
@@ -58,38 +56,10 @@ bool	is_map_rectangular(t_game *game)
 	return (true);
 }
 
-// bool	is_map_empty(char *map_path)
-// {
-// 	int		fd;
-// 	char	*line;
-// 	bool	is_empty;
-
-// 	fd = open(map_path, O_RDONLY);
-// 	if (fd < 0)
-// 		return (true);
-// 	line = get_next_line(fd);
-// 	is_empty = true;
-// 	if (line)
-// 	{
-// 		if (ft_strlen(line) > 1 || (ft_strlen(line) == 1 && line[0] != '\n'))
-// 			is_empty = false;
-// 		free(line);
-// 		if (!is_empty)
-// 		{
-// 			line = get_next_line(fd);
-// 			while (line != NULL)
-// 			{
-// 				free(line);
-// 				line = get_next_line(fd);
-// 			}
-// 		}
-// 	}
-// 	return (close(fd), is_empty);
-// }
-
-
-
-bool	is_map_enclosed_by_walls(t_map *map)
+/**
+ * Checks if the map is surrounded by walls
+ */
+static bool	is_map_enclosed_by_walls(t_map *map)
 {
 	int	r;
 	int	c;
@@ -115,6 +85,10 @@ bool	is_map_enclosed_by_walls(t_map *map)
 	return (true);
 }
 
+/**
+ * Checks and counts a single map element
+ * (player, exit, collectible, wall, empty)
+ */
 static void	check_map_element(t_game *game, int row, int col)
 {
 	char	element;
@@ -153,10 +127,11 @@ void	validate_and_count_map_elements(t_game *game)
 	if (game->map.player_count != 1)
 		map_error(game, "You need exactly one hero! Not a crowd, not a ghost.");
 	if (game->map.exit_count != 1)
-		map_error(game, "There must be exactly one exit!\
-		 Too many exits and he gets lost, too few and he's stuck!");
+		map_error(game,
+			"There must be exactly one exit!\n"
+			"Too many exits and he gets lost, too few and he's stuck!");
 	if (game->map.collectible_count < 1)
-		map_error(game, "No treasures?\
-			Adventurers need at least one collectible!");
+		map_error(game,
+			"No treasures?\n"
+			"Adventurers need at least one collectible!");
 }
-
