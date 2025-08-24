@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 18:38:04 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/24 01:30:26 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:41:18 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void			check_path_validity(t_game *game);
 static void		flood_fill(t_game *game, int row, int col);
 static void		flood_fill_path_finding(t_game *game);
-bool		is_walkable(t_map map, int row, int col);
+bool			is_walkable(t_map map, int row, int col);
 static void		can_collect_and_escape(t_game *game);
 
 bool	is_walkable(t_map map, int row, int col)

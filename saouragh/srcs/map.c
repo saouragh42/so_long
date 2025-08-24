@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 16:47:37 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 21:47:22 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:42:03 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	validate_map(t_game *game)
 	validate_and_count_map_elements(game);
 	check_path_validity(game);
 }
-
 
 // Checks if the map is rectangular (all rows have the same length)
 static bool	is_map_rectangular(t_game *game)

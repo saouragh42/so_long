@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:19:43 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/23 23:47:54 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:41:51 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,3 @@ static void	init_player(t_game *game)
 	game->player.image = NULL;
 	game->player.collectibles = 0;
 }
-

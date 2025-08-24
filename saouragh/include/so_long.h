@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 19:50:49 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/24 02:20:49 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:43:00 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 // --- MLX/X11 Event Codes ---
 # define ON_DESTROY      17
 # define KEY_PRESS       2
-# define KEY_PRESS_MASK  (1L<<0)
 
 // --- Key Codes ---
 # define K_AR_LEFT   65361

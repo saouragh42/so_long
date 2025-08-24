@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 19:49:54 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/24 02:29:54 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:42:53 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	parsing_and_validation(game, argv[1]);
 	graphics_and_rendering(game);
 	mlx_expose_hook(game->window, render_map, game);
-	mlx_hook(game->window, KEY_PRESS, KEY_PRESS_MASK, handle_keypress, game);
+	mlx_hook(game->window, KEY_PRESS, (1L<<0), handle_keypress, game);
 	mlx_hook(game->window, ON_DESTROY, 0, close_window, game);
 	mlx_loop(game->mlx);
 	return (0);

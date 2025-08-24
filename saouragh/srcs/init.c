@@ -6,13 +6,13 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 02:18:20 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 21:48:51 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 02:39:29 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	check_args(int argc, char **argv);
+void			check_args(int argc, char **argv);
 static int		is_file_exists(char *map_path);
 static int		is_valid_map_name(char *map_name);
 
