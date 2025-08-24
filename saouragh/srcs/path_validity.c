@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 18:38:04 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 21:45:59 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/24 01:30:26 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 void			check_path_validity(t_game *game);
 static void		flood_fill(t_game *game, int row, int col);
 static void		flood_fill_path_finding(t_game *game);
-static bool		is_walkable(t_game *game, int row, int col);
+bool		is_walkable(t_map map, int row, int col);
 static void		can_collect_and_escape(t_game *game);
 
-static bool	is_walkable(t_game *game, int row, int col)
+bool	is_walkable(t_map map, int row, int col)
 {
-	if (row < 0 || row >= game->map_copy.rows)
+	if (row < 0 || row >= map.rows)
 		return (false);
-	if (col < 0 || col >= game->map_copy.columns)
+	if (col < 0 || col >= map.columns)
 		return (false);
-	if (game->map_copy.map_grid[row][col] == WALL
-		|| game->map_copy.map_grid[row][col] == FILLER)
+	if (map.map_grid[row][col] == WALL
+		|| map.map_grid[row][col] == FILLER)
 		return (false);
 	return (true);
 }
 
 static void	flood_fill(t_game *game, int row, int col)
 {
-	if (!is_walkable(game, row, col))
+	if (!is_walkable(game->map_copy, row, col))
 		return ;
 	if (game->map_copy.map_grid[row][col] == COLLECTIBLE)
 		game->map_copy.collectible_count++;

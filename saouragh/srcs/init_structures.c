@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:19:43 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 18:50:59 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/23 23:47:54 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ void	init_game_structures(t_game *game)
 	init_map(&game->map);
 	init_map(&game->map_copy);
 	init_player(game);
+	game->mlx = NULL;
+	game->window = NULL;
+	game->floor = NULL;
+	game->wall = NULL;
+	game->collectible = NULL;
+	game->exit = NULL;
+	game->movements = 0;
 }
 
 static void	init_map(t_map *map)
@@ -37,5 +44,7 @@ static void	init_player(t_game *game)
 {
 	game->player.x = -1;
 	game->player.y = -1;
+	game->player.image = NULL;
+	game->player.collectibles = 0;
 }
 

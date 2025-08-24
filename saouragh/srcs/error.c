@@ -6,7 +6,7 @@
 /*   By: saouragh <saouragh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/22 02:14:49 by saouragh          #+#    #+#             */
-/*   Updated: 2025/08/22 14:21:35 by saouragh         ###   ########.fr       */
+/*   Updated: 2025/08/23 23:10:53 by saouragh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	map_error(t_game *game, char *error_msg)
 	ft_printf("Error\n");
 	ft_printf("%s\n", error_msg);
 	if (game)
+	{
+		cleanup_graphics(game);
 		free_game(game);
+	}
 	exit(EXIT_FAILURE);
 }
 
@@ -29,8 +32,13 @@ void	free_map(t_map *map)
 		return ;
 	i = 0;
 	while (i < map->rows)
-		free(map->map_grid[i++]);
+	{
+		free(map->map_grid[i]);
+		map->map_grid[i] = NULL;
+		i++;
+	}
 	free(map->map_grid);
+	map->map_grid = NULL;
 }
 
 void	free_game(t_game *game)
